@@ -1,5 +1,6 @@
 package pokemonLite;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,24 +8,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PokemonTest {
-	private Pokemon pikachu;
-	private Pokemon raichu;
-	
-	@Before
-	public void init() {
-		raichu = new Pokemon("Raichu", 
-								new ArrayList<PokemonType>(Arrays.asList(PokemonType.ELECTRIC)), 
-								9, 
-								new ArrayList<String>(Arrays.asList("Lightning Rod")), 
-								new ArrayList<Pokemon>());
-			
-		pikachu = new Pokemon("Pikachu", 
-								new ArrayList<PokemonType>(Arrays.asList(PokemonType.ELECTRIC)), 
-								5, 
-								new ArrayList<String>(Arrays.asList("Lightning Rod")), 
-								new ArrayList<Pokemon>(Arrays.asList(raichu)));
+public class PokemonTest extends Fixture {
+	@Test
+	public void pikachuIsSaved() throws IOException, ClassNotFoundException {
+		saver.savePokemon(pikachu);
+		Pokemon pokemonInFile = saver.getPokemonInfo("Pikachu");
+		Assert.assertEquals(pikachu.getName(), pokemonInFile.getName());
 	}
-	
-	
 }

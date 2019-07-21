@@ -1,28 +1,29 @@
 package pokemonLite;
 
-import javax.persistence.*;
+import java.io.*;
 import java.util.*;
 
 public class PokemonSaver {
-	private EntityManager managerOfEntities;
+	FileOutputStream fileOutput;
+	FileInputStream fileInput;
 	
-	public PokemonSaver() {
-		managerOfEntities = Persistence.createEntityManagerFactory("$objectdb/db/pokemon-db.odb")
-									   .createEntityManager();
+	public PokemonSaver(String aPath) throws FileNotFoundException {
+		fileOutput = new FileOutputStream(aPath);
+		fileInput = new FileInputStream(aPath);
 	}
 	
-	public void savePokemon(Pokemon aPokemon) {
-		managerOfEntities.persist(aPokemon);
+	public void savePokemon(Pokemon aPokemon) throws IOException {
+		ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
+		objectOutput.writeObject(aPokemon);
+		objectOutput.close();
 	}
 	
-	public Pokemon getPokemonInfo(String pokemonName) {
-		Query pokemonQuery = managerOfEntities.createQuery("SELECT p FROM Pokemon p WHERE p.name = :name", Pokemon.class)
-											  .setParameter("name", pokemonName);
-		return (Pokemon) pokemonQuery.getSingleResult();
-	}
-	
-	public List<Pokemon> listAllPokemons() {
-		Query pokemonQuery = managerOfEntities.createQuery("SELECT p FROM Pokemon p", Pokemon.class);
-		return pokemonQuery.getResultList();
+	public Pokemon getPokemonInfo(String pokemonName) throws IOException, ClassNotFoundException {
+			ObjectInputStream objectInput = new ObjectInputStream(fileInput);
+			Pokemon aPokemon = (Pokemon) objectInput.readObject();
+			while(aPokemon.isThePokemon(pokemonName)) {
+				aPokemon = (Pokemon) objectInput.readObject();
+			}
+			return aPokemon;
 	}
 }

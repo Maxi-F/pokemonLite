@@ -1,29 +1,62 @@
 package pokemonLite;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 
 public class PokemonSaver {
-	FileOutputStream fileOutput;
-	FileInputStream fileInput;
+	private Gson gson;
+	private String path;
+	private Type pokemonType;
 	
-	public PokemonSaver(String aPath) throws FileNotFoundException {
-		fileOutput = new FileOutputStream(aPath);
-		fileInput = new FileInputStream(aPath);
+	public PokemonSaver(String filePath) {
+		gson = new GsonBuilder().setPrettyPrinting().create();
+		path = filePath;
+		pokemonType = new TypeToken<List<Pokemon>>(){}.getType();
 	}
 	
-	public void savePokemon(Pokemon aPokemon) throws IOException {
-		ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
-		objectOutput.writeObject(aPokemon);
-		objectOutput.close();
+	private List<Pokemon> setNewPokemonInfoToJson(Pokemon aPokemon) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
+		List<Pokemon> allPokemons = this.getAllPokemons();
+		if(allPokemons.stream().anyMatch(pokemon -> pokemon.isThePokemonInDB(aPokemon.getNameInDB(), aPokemon.getName()))) {
+			System.out.println("Im gonna update");
+			allPokemons = this.updateInfoFrom(allPokemons, aPokemon);
+		} else {
+			allPokemons.add(aPokemon);	
+		}
+		return allPokemons;
+	}
+
+	private List<Pokemon> updateInfoFrom(List<Pokemon> allPokemons, Pokemon aPokemon) {
+		List<Pokemon> newPokemonList = allPokemons.stream()
+												  .filter(pokemon -> !pokemon.isThePokemonInDB(aPokemon.getNameInDB(), aPokemon.getName()))
+												  .collect(Collectors.toList());
+		newPokemonList.add(aPokemon);
+		newPokemonList.forEach(pokemon -> pokemon.updateEvolutions(aPokemon));
+		return newPokemonList;
+	}
+
+	public void savePokemon(Pokemon aPokemon) throws JsonIOException, IOException {
+		List<Pokemon> allPokemons = this.setNewPokemonInfoToJson(aPokemon);
+		FileWriter file = new FileWriter(this.path);
+		gson.toJson(allPokemons, file);
+		file.flush();
+		file.close();
 	}
 	
-	public Pokemon getPokemonInfo(String pokemonName) throws IOException, ClassNotFoundException {
-			ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-			Pokemon aPokemon = (Pokemon) objectInput.readObject();
-			while(aPokemon.isThePokemon(pokemonName)) {
-				aPokemon = (Pokemon) objectInput.readObject();
-			}
-			return aPokemon;
+	
+	public Pokemon getPokemonInfo(String pokemonName) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
+		return this.getAllPokemons()
+				   .stream()
+				   .filter(pokemon -> pokemon.isThePokemonName(pokemonName))
+				   .findFirst().get();
+				   
+	}
+	
+	public List<Pokemon> getAllPokemons() throws JsonIOException, JsonSyntaxException, FileNotFoundException {
+		return gson.fromJson(new FileReader(path), pokemonType);
 	}
 }

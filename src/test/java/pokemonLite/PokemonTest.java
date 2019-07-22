@@ -10,9 +10,11 @@ import org.junit.Test;
 
 public class PokemonTest extends Fixture {
 	@Test
-	public void pikachuIsSaved() throws IOException, ClassNotFoundException {
+	public void pikachuIsUpdated() throws IOException, ClassNotFoundException {
+		Pokemon pokemonInFileBefore = saver.getPokemonInfo("Pikachu");
+		System.out.println(pikachu.getName());
 		saver.savePokemon(pikachu);
-		Pokemon pokemonInFile = saver.getPokemonInfo("Pikachu");
+		System.out.println(pokemonInFile.getName());
 		Assert.assertEquals(pikachu.getName(), pokemonInFile.getName());
 	}
 }

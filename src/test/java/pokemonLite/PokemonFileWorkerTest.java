@@ -15,7 +15,7 @@ import org.junit.Test;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-public class PokemonSaverTest extends Fixture {
+public class PokemonFileWorkerTest extends Fixture {
 	
 	private void addAllTestingPokemonsTo(List<Pokemon> pokemonsThatGotSaved) {
 		pokemonsThatGotSaved.add(pichu);
@@ -46,14 +46,14 @@ public class PokemonSaverTest extends Fixture {
 	
 	@Test
 	public void pikachuIsUpdatedToTheOneAndOnly() throws IOException, ClassNotFoundException {
-		Pokemon pokemonInFileAfter = saver.getPokemonInfo("theOneAndOnly");
+		Pokemon pokemonInFileAfter = pokemonFileWorker.getPokemonInfo("theOneAndOnly");
 		Assert.assertEquals(pikachu.getName(), pokemonInFileAfter.getName());
 	}
 	
 	@Test
 	public void allTestingPokemonsHaveBeenSaved() throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		List<Pokemon> pokemonsThatGotSaved = new ArrayList<Pokemon>();
-		List<Pokemon> savedPokemons = saver.getAllPokemons();
+		List<Pokemon> savedPokemons = pokemonFileWorker.getAllPokemons();
 		this.addAllTestingPokemonsTo(pokemonsThatGotSaved);
 		
 		Assert.assertTrue(this.allTestingPokemonsAreInJSON(savedPokemons, pokemonsThatGotSaved));
@@ -61,25 +61,25 @@ public class PokemonSaverTest extends Fixture {
 
 	@Test
 	public void mewtwoCanBeRetrievedFromTheDB() throws JsonIOException, JsonSyntaxException, FileNotFoundException {
-		Pokemon maybeMewtwo = saver.getPokemonInfo("mewtwo");
+		Pokemon maybeMewtwo = pokemonFileWorker.getPokemonInfo("mewtwo");
 		Assert.assertTrue(maybeMewtwo.isTheSamePokemonAs(mewtwo));
 	}
 	
 	@Test
 	public void raichusNameTypesAndLevelAreTheSameAsInDB() throws JsonIOException, JsonSyntaxException, FileNotFoundException {
-		Pokemon maybeRaichu = saver.getPokemonInfo("Raichu");
+		Pokemon maybeRaichu = pokemonFileWorker.getPokemonInfo("Raichu");
 		Assert.assertTrue(maybeRaichu.hasSameNameTypesAndLevelAs(raichu));
 	}
 	
 	@Test
 	public void bulbasaursAbilitiesAndEvolutionsAreTheSameAsInDB() throws JsonIOException, JsonSyntaxException, FileNotFoundException {
-		Pokemon maybeBulbasaur = saver.getPokemonInfo("Bulbasaur");
+		Pokemon maybeBulbasaur = pokemonFileWorker.getPokemonInfo("Bulbasaur");
 		Assert.assertTrue(maybeBulbasaur.hasSameAbilitiesAndEvolutionsAs(bulbasaur));
 	}
 	
 	@Test
 	public void charmandersEvolutionsInfoAreRetrievedFromDB() throws JsonIOException, JsonSyntaxException, FileNotFoundException {
-		Pokemon maybeCharmander = saver.getPokemonInfo("Charmander");
+		Pokemon maybeCharmander = pokemonFileWorker.getPokemonInfo("Charmander");
 		List<Pokemon> charmandersEvolutionsInDB = maybeCharmander.getEvolutions();
 		List<Pokemon> charmandersRealEvolutions = new ArrayList<Pokemon>(Arrays.asList(charmaleon, charizard));
 		Assert.assertTrue(charmandersEvolutionsInDB.stream()
@@ -88,8 +88,8 @@ public class PokemonSaverTest extends Fixture {
 
 	@Test
 	public void greninjaCanBeAddedAndRetrievedFromDB() throws JsonIOException, IOException {
-		saver.savePokemon(greninja);
-		Pokemon maybeGreninja = saver.getPokemonInfo("Greninja");
+		pokemonFileWorker.savePokemon(greninja);
+		Pokemon maybeGreninja = pokemonFileWorker.getPokemonInfo("Greninja");
 		Assert.assertTrue(maybeGreninja.isTheSamePokemonAs(greninja));
 	}
 	

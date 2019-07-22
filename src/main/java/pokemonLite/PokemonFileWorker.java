@@ -5,18 +5,25 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
-public class PokemonSaver {
+public class PokemonFileWorker {
 	private Gson gson;
 	private String path;
 	private Type pokemonType;
 	
-	public PokemonSaver(String filePath) {
+	public PokemonFileWorker(String filePath) {
 		gson = new GsonBuilder().setPrettyPrinting().create();
 		path = filePath;
 		pokemonType = new TypeToken<List<Pokemon>>(){}.getType();
+	}
+	
+	public void setPath(String newFilePath) {
+		this.path = newFilePath;
 	}
 	
 	private List<Pokemon> setNewPokemonInfoToJson(Pokemon aPokemon) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
@@ -46,7 +53,6 @@ public class PokemonSaver {
 		file.flush();
 		file.close();
 	}
-	
 	
 	public Pokemon getPokemonInfo(String pokemonName) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		return this.getAllPokemons()

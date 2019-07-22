@@ -1,7 +1,6 @@
 package pokemonLite;
 
 import java.io.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,11 +19,20 @@ public class Fixture {
 	protected Pokemon mewtwo;
 	protected Pokemon greninja;
 	
-	protected PokemonSaver saver;
+	protected PokemonFileWorker pokemonFileWorker;
 	
 	@Before
 	public void init() throws IOException {
-		saver = new PokemonSaver("D:\\eclipse\\workspace\\pokemonLite\\test.json");
+		File checkingFile = new File("test.json");
+		
+		if(!checkingFile.exists()) {
+			FileWriter fileToWriteFirstArrayTo = new FileWriter("test.json");
+			fileToWriteFirstArrayTo.append("[]");
+			fileToWriteFirstArrayTo.flush();
+			fileToWriteFirstArrayTo.close();
+		}
+		
+		pokemonFileWorker = new PokemonFileWorker("test.json");
 		
 		raichu = new Pokemon("Raichu", 
 							 new ArrayList<PokemonType>(Arrays.asList(PokemonType.ELECTRIC)), 
@@ -94,19 +102,19 @@ public class Fixture {
 				 			   new ArrayList<String>(Arrays.asList("Torrent", "Protean")),
 				 			   new ArrayList<Pokemon>());
 		
-		saver.savePokemon(raichu);
-		saver.savePokemon(pikachu);
-		saver.savePokemon(pichu);
-		saver.savePokemon(venosaur);
-		saver.savePokemon(ivysaur);
-		saver.savePokemon(bulbasaur);
-		saver.savePokemon(charizard);
-		saver.savePokemon(charmaleon);
-		saver.savePokemon(charmander);
-		saver.savePokemon(mewtwo);
+		pokemonFileWorker.savePokemon(raichu);
+		pokemonFileWorker.savePokemon(pikachu);
+		pokemonFileWorker.savePokemon(pichu);
+		pokemonFileWorker.savePokemon(venosaur);
+		pokemonFileWorker.savePokemon(ivysaur);
+		pokemonFileWorker.savePokemon(bulbasaur);
+		pokemonFileWorker.savePokemon(charizard);
+		pokemonFileWorker.savePokemon(charmaleon);
+		pokemonFileWorker.savePokemon(charmander);
+		pokemonFileWorker.savePokemon(mewtwo);
 		
 		pikachu.setName("theOneAndOnly");
-		saver.savePokemon(pikachu);
+		pokemonFileWorker.savePokemon(pikachu);
 	}
 	
 	

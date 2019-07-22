@@ -5,10 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.io.Serializable;
 
-public class Pokemon implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	
+public class Pokemon {
 	private String name;
 	private String lastNameSavedInDB;
 	private List<PokemonType> types;
@@ -30,11 +27,19 @@ public class Pokemon implements Serializable {
 		return name;
 	}
 
+	public void addAbility(String newAbility) {
+		this.abilities.add(newAbility);
+	}
+	
+	public void removeAbility(String abilityToRemove) {
+		abilities.remove(abilityToRemove);
+	}
+
 	public int getLevel() {
 		return level;
 	}
 	
-	private void setLevel(int aLevel) {
+	public void setLevel(int aLevel) {
 		this.level = aLevel;
 	}
 	
@@ -46,7 +51,7 @@ public class Pokemon implements Serializable {
 		return types;
 	}
 	
-	private void setTypes(List<PokemonType> someTypes) {
+	public void setTypes(List<PokemonType> someTypes) {
 		this.types = someTypes;
 	}
 	
@@ -64,6 +69,14 @@ public class Pokemon implements Serializable {
 	
 	public List<Pokemon> getEvolutions() {
 		return evolutions;	
+	}
+	
+	public void setAbilities(List<String> someAbilities) {
+		this.abilities = someAbilities;
+	}
+	
+	public List<String> getAbilities() {
+		return this.abilities;
 	}
 
 	public boolean isThePokemonName(String pokemonName) {
@@ -104,13 +117,6 @@ public class Pokemon implements Serializable {
 		this.setAbilities(aPokemon.getAbilities());
 	}
 
-	private void setAbilities(List<String> someAbilities) {
-		this.abilities = someAbilities;
-	}
-
-	private List<String> getAbilities() {
-		return this.abilities;
-	}
 
 	// Testing methods
 	public boolean isTheSamePokemonAs(Pokemon aPokemon) {
@@ -140,5 +146,20 @@ public class Pokemon implements Serializable {
 
 	private Boolean hasAbility(String anAbility) {
 		return this.abilities.stream().anyMatch(ability -> ability.equals(anAbility));
+	}
+	
+	// for showing pruposes only
+	@Override
+	public String toString() {
+		return String.format("Name: %s, Level:%d, Types:%s, Abilities: %s, Evolutions: %s", 
+							 this.name,
+							 this.level,
+							 this.types.stream().map(type -> type.toString()).collect(Collectors.toList()).toString(),
+							 this.abilities.toString(),
+							 this.evolutions.stream().map(pokemon -> pokemon.getName()).collect(Collectors.toList()).toString());
+	}
+
+	public void removeEvolution(Pokemon aPokemon) {
+		evolutions.remove(aPokemon);
 	}
 }

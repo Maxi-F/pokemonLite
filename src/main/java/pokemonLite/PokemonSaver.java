@@ -21,18 +21,18 @@ public class PokemonSaver {
 	
 	private List<Pokemon> setNewPokemonInfoToJson(Pokemon aPokemon) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		List<Pokemon> allPokemons = this.getAllPokemons();
-		if(allPokemons.stream().anyMatch(pokemon -> pokemon.isThePokemonInDB(aPokemon.getNameInDB(), aPokemon.getName()))) {
-			System.out.println("Im gonna update");
+		if(allPokemons.stream().anyMatch(pokemon -> pokemon.isThePokemonsName(aPokemon.getNameInDB()))) {
 			allPokemons = this.updateInfoFrom(allPokemons, aPokemon);
 		} else {
 			allPokemons.add(aPokemon);	
 		}
+		aPokemon.hasBeenSaved();
 		return allPokemons;
 	}
 
 	private List<Pokemon> updateInfoFrom(List<Pokemon> allPokemons, Pokemon aPokemon) {
 		List<Pokemon> newPokemonList = allPokemons.stream()
-												  .filter(pokemon -> !pokemon.isThePokemonInDB(aPokemon.getNameInDB(), aPokemon.getName()))
+												  .filter(pokemon -> !pokemon.isThePokemonsName(aPokemon.getNameInDB()))
 												  .collect(Collectors.toList());
 		newPokemonList.add(aPokemon);
 		newPokemonList.forEach(pokemon -> pokemon.updateEvolutions(aPokemon));
@@ -51,7 +51,7 @@ public class PokemonSaver {
 	public Pokemon getPokemonInfo(String pokemonName) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		return this.getAllPokemons()
 				   .stream()
-				   .filter(pokemon -> pokemon.isThePokemonName(pokemonName))
+				   .filter(pokemon -> pokemon.isThePokemonsName(pokemonName))
 				   .findFirst().get();
 				   
 	}

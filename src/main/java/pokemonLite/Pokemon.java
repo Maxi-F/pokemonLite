@@ -10,7 +10,7 @@ public class Pokemon implements Serializable {
 	
 	
 	private String name;
-	private String lastNameSavedInDB;
+	private transient String lastNameSavedInDB;
 	private List<PokemonType> types;
 	private int level;
 	private List<String> abilities;
@@ -62,12 +62,8 @@ public class Pokemon implements Serializable {
 		evolutions.add(anEvolution);
 	}
 
-	public boolean isThePokemonName(String pokemonName) {
+	public boolean isThePokemonsName(String pokemonName) {
 		return this.name.equals(pokemonName);
-	}
-	
-	public boolean isThePokemonNameInDB(String pokemonNameInDB) {
-		return this.lastNameSavedInDB.equals(pokemonNameInDB);
 	}
 	
 	public void hasBeenSaved() {
@@ -78,14 +74,10 @@ public class Pokemon implements Serializable {
 		return this.lastNameSavedInDB;
 	}
 
-	public boolean isThePokemonInDB(String aNameInDB, String aName) {
-		return this.isThePokemonName(aName) || this.isThePokemonNameInDB(aNameInDB);
-	}
-
 	public void updateEvolutions(Pokemon aPokemon) {
 		Optional<Pokemon> pokemonToUpdate = this.evolutions.stream()
-					   					 .filter(pokemon -> pokemon.isThePokemonNameInDB(aPokemon.getNameInDB()))
-					   					 .findFirst();
+					   					 				   .filter(pokemon -> pokemon.isThePokemonsName(aPokemon.getNameInDB()))
+					   					 				   .findFirst();
 		
 		if(pokemonToUpdate.isPresent()) {
 			pokemonToUpdate.get().updateValues(aPokemon);
@@ -93,8 +85,8 @@ public class Pokemon implements Serializable {
 	}
 
 	private void updateValues(Pokemon aPokemon) {
-		this.hasBeenSaved();
 		this.setName(aPokemon.getName());
+		this.hasBeenSaved();
 		this.setTypes(aPokemon.getTypes());
 		this.setLevel(aPokemon.getLevel());
 		this.setAbilities(aPokemon.getAbilities());
@@ -108,5 +100,8 @@ public class Pokemon implements Serializable {
 		return this.abilities;
 	}
 
- 
+	// Testing method
+	public boolean isTheSamePokemonAs(Pokemon aPokemon) {
+		return this.isThePokemonsName(aPokemon.getName());
+	}
 }

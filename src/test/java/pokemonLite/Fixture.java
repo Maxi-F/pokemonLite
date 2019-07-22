@@ -17,6 +17,7 @@ public class Fixture {
 	protected Pokemon charmander;
 	protected Pokemon charmaleon;
 	protected Pokemon charizard;
+	protected Pokemon mewtwo;
 	
 	protected PokemonSaver saver;
 	
@@ -62,10 +63,10 @@ public class Fixture {
 								new ArrayList<Pokemon>(Arrays.asList(ivysaur)));
 		
 		charizard = new Pokemon("Charizard", 
-				new ArrayList<PokemonType>(Arrays.asList(PokemonType.FIRE, PokemonType.FLYING)), 
-				16, 
-				new ArrayList<String>(Arrays.asList("Blaze")), 
-				new ArrayList<Pokemon>());
+								new ArrayList<PokemonType>(Arrays.asList(PokemonType.FIRE, PokemonType.FLYING)), 
+								16, 
+								new ArrayList<String>(Arrays.asList("Blaze")), 
+								new ArrayList<Pokemon>());
 		
 		charmaleon = new Pokemon("Charmaleon", 
 								 new ArrayList<PokemonType>(Arrays.asList(PokemonType.FIRE)), 
@@ -80,7 +81,11 @@ public class Fixture {
 				   				 new ArrayList<String>(Arrays.asList("Blaze")), 
 				   				 new ArrayList<Pokemon>(Arrays.asList(charmaleon)));
 		
-		
+		mewtwo = new Pokemon("mewtwo",
+							 new ArrayList<PokemonType>(Arrays.asList(PokemonType.PSYCHIC)),
+							 50,
+							 new ArrayList<String>(Arrays.asList("Pressure", "Unnerve")),
+							 new ArrayList<Pokemon>());
 		
 		saver.savePokemon(raichu);
 		saver.savePokemon(pikachu);
@@ -91,6 +96,10 @@ public class Fixture {
 		saver.savePokemon(charizard);
 		saver.savePokemon(charmaleon);
 		saver.savePokemon(charmander);
+		saver.savePokemon(mewtwo);
+		
+		pikachu.setName("theOneAndOnly");
+		saver.savePokemon(pikachu);
 	}
 	
 	

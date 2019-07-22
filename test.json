@@ -1,1 +1,263 @@
-[]
+[
+  {
+    "name": "Greninja",
+    "lastNameSavedInDB": "Greninja",
+    "types": [
+      "WATER",
+      "DARK"
+    ],
+    "level": 25,
+    "abilities": [
+      "Torrent",
+      "Protean"
+    ],
+    "evolutions": []
+  },
+  {
+    "name": "Raichu",
+    "lastNameSavedInDB": "Raichu",
+    "types": [
+      "ELECTRIC"
+    ],
+    "level": 9,
+    "abilities": [
+      "Lightning Rod"
+    ],
+    "evolutions": []
+  },
+  {
+    "name": "Pichu",
+    "lastNameSavedInDB": "Pichu",
+    "types": [
+      "ELECTRIC"
+    ],
+    "level": 2,
+    "abilities": [
+      "Lightning Rod"
+    ],
+    "evolutions": [
+      {
+        "name": "theOneAndOnly",
+        "lastNameSavedInDB": "theOneAndOnly",
+        "types": [
+          "ELECTRIC"
+        ],
+        "level": 5,
+        "abilities": [
+          "Lightning Rod"
+        ],
+        "evolutions": [
+          {
+            "name": "Raichu",
+            "lastNameSavedInDB": "Raichu",
+            "types": [
+              "ELECTRIC"
+            ],
+            "level": 9,
+            "abilities": [
+              "Lightning Rod"
+            ],
+            "evolutions": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Venosaur",
+    "lastNameSavedInDB": "Venosaur",
+    "types": [
+      "GRASS",
+      "POISON"
+    ],
+    "level": 11,
+    "abilities": [
+      "Overgrow"
+    ],
+    "evolutions": []
+  },
+  {
+    "name": "Ivysaur",
+    "lastNameSavedInDB": "Ivysaur",
+    "types": [
+      "GRASS",
+      "POISON"
+    ],
+    "level": 7,
+    "abilities": [
+      "Overgrow"
+    ],
+    "evolutions": [
+      {
+        "name": "Venosaur",
+        "lastNameSavedInDB": "Venosaur",
+        "types": [
+          "GRASS",
+          "POISON"
+        ],
+        "level": 11,
+        "abilities": [
+          "Overgrow"
+        ],
+        "evolutions": []
+      }
+    ]
+  },
+  {
+    "name": "Bulbasaur",
+    "lastNameSavedInDB": "Bulbasaur",
+    "types": [
+      "GRASS",
+      "POISON"
+    ],
+    "level": 3,
+    "abilities": [
+      "Overgrow"
+    ],
+    "evolutions": [
+      {
+        "name": "Ivysaur",
+        "lastNameSavedInDB": "Ivysaur",
+        "types": [
+          "GRASS",
+          "POISON"
+        ],
+        "level": 7,
+        "abilities": [
+          "Overgrow"
+        ],
+        "evolutions": [
+          {
+            "name": "Venosaur",
+            "lastNameSavedInDB": "Venosaur",
+            "types": [
+              "GRASS",
+              "POISON"
+            ],
+            "level": 11,
+            "abilities": [
+              "Overgrow"
+            ],
+            "evolutions": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Charizard",
+    "lastNameSavedInDB": "Charizard",
+    "types": [
+      "FIRE",
+      "FLYING"
+    ],
+    "level": 16,
+    "abilities": [
+      "Blaze"
+    ],
+    "evolutions": []
+  },
+  {
+    "name": "Charmaleon",
+    "lastNameSavedInDB": "Charmaleon",
+    "types": [
+      "FIRE"
+    ],
+    "level": 8,
+    "abilities": [
+      "Blaze"
+    ],
+    "evolutions": [
+      {
+        "name": "Charizard",
+        "lastNameSavedInDB": "Charizard",
+        "types": [
+          "FIRE",
+          "FLYING"
+        ],
+        "level": 16,
+        "abilities": [
+          "Blaze"
+        ],
+        "evolutions": []
+      }
+    ]
+  },
+  {
+    "name": "Charmander",
+    "lastNameSavedInDB": "Charmander",
+    "types": [
+      "FIRE"
+    ],
+    "level": 4,
+    "abilities": [
+      "Blaze"
+    ],
+    "evolutions": [
+      {
+        "name": "Charmaleon",
+        "lastNameSavedInDB": "Charmaleon",
+        "types": [
+          "FIRE"
+        ],
+        "level": 8,
+        "abilities": [
+          "Blaze"
+        ],
+        "evolutions": [
+          {
+            "name": "Charizard",
+            "lastNameSavedInDB": "Charizard",
+            "types": [
+              "FIRE",
+              "FLYING"
+            ],
+            "level": 16,
+            "abilities": [
+              "Blaze"
+            ],
+            "evolutions": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mewtwo",
+    "lastNameSavedInDB": "mewtwo",
+    "types": [
+      "PSYCHIC"
+    ],
+    "level": 50,
+    "abilities": [
+      "Pressure",
+      "Unnerve"
+    ],
+    "evolutions": []
+  },
+  {
+    "name": "theOneAndOnly",
+    "lastNameSavedInDB": "theOneAndOnly",
+    "types": [
+      "ELECTRIC"
+    ],
+    "level": 5,
+    "abilities": [
+      "Lightning Rod"
+    ],
+    "evolutions": [
+      {
+        "name": "Raichu",
+        "lastNameSavedInDB": "Raichu",
+        "types": [
+          "ELECTRIC"
+        ],
+        "level": 9,
+        "abilities": [
+          "Lightning Rod"
+        ],
+        "evolutions": []
+      }
+    ]
+  }
+]

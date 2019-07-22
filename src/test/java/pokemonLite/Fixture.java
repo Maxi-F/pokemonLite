@@ -18,6 +18,7 @@ public class Fixture {
 	protected Pokemon charmaleon;
 	protected Pokemon charizard;
 	protected Pokemon mewtwo;
+	protected Pokemon greninja;
 	
 	protected PokemonSaver saver;
 	
@@ -86,6 +87,12 @@ public class Fixture {
 							 50,
 							 new ArrayList<String>(Arrays.asList("Pressure", "Unnerve")),
 							 new ArrayList<Pokemon>());
+		
+		greninja = new Pokemon("Greninja",
+				 			   new ArrayList<PokemonType>(Arrays.asList(PokemonType.WATER, PokemonType.DARK)),
+				 			   25,
+				 			   new ArrayList<String>(Arrays.asList("Torrent", "Protean")),
+				 			   new ArrayList<Pokemon>());
 		
 		saver.savePokemon(raichu);
 		saver.savePokemon(pikachu);
